@@ -12,7 +12,7 @@ class TestCampfire < Test::Unit::TestCase
   attr_accessor :app
 
   def setup
-    @app = CIJoe::Server.new
+    @app = CIJoe::Server.new.instance_variable_get(:@app)
     joe = @app.joe
     
     # make Build#restore a no-op so we don't overwrite our current/last

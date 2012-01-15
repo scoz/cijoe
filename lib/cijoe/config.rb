@@ -19,7 +19,9 @@ class CIJoe
       result = `#{git_command} 2>&1`.chomp
       process_status = $?
 
-      if successful_command?(process_status) || config_command_with_empty_value?(result,process_status)
+      if config_command_invalid_section?(process_status)
+        return ''
+      elsif successful_command?(process_status) || config_command_with_empty_value?(result,process_status)
         return result
       else
         raise "Error calling git config, is a recent version of git installed? Command: #{git_command.inspect}, Error: #{result.inspect}, Status: #{process_status.inspect}"
@@ -38,6 +40,10 @@ class CIJoe
 
     def config_command_with_empty_value?(result, process_status)
       process_status.exitstatus.to_i == 1 && result.empty?
+    end
+
+    def config_command_invalid_section?(process_status)
+      process_status.exitstatus.to_i == 255
     end
   end
 end

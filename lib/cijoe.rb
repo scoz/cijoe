@@ -39,6 +39,14 @@ class CIJoe
     trap("INT") { stop }
   end
 
+  def last_build
+    if @old_bulids.nil?
+      nil
+    else
+      @old_builds[0]
+    end
+  end
+
   # is a build running?
   def building?
     !!@current_build
@@ -199,6 +207,8 @@ class CIJoe
   def restore
     clean_builds
     builds = []
+    @old_builds = []
+
     Dir.glob(".git/builds/*") do |file|
       file = File.basename(file)
       builds << file unless (file =~/\./ or file.to_i == 0)

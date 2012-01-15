@@ -20,6 +20,10 @@ end
 # #mock file to be the file I want
 class CIJoe
   attr_writer :last_build
+  def last_build
+    @last_build
+  end
+
   alias orig_path_in_project path_in_project
   alias orig_git_user_and_project git_user_and_project
   

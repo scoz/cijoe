@@ -42,7 +42,7 @@
             <li>
               <span class="date"><%= pretty_time(build.finished_at) %></span> &raquo;
               <% if build.sha %>
-                Build <%= build.branch %> at <a href="<%= branch.commit.url %>"><%= build.short_sha %></a>
+                Build <%= build.branch %> at <a href="<%= build.commit.url %>"><%= build.short_sha %></a>
               <% end %>
               <span class="<%= build.status %>">(<%= build.status %>)</span>
               <% if build.duration %>
